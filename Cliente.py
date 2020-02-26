@@ -15,12 +15,12 @@ IP = "10.0.0.20"
 PORT = 1234
 my_username = input("Username: ")
 
-# Create a socket
+# Creación del Socket
 # socket.AF_INET - address family, IPv4, some otehr possible are AF_INET6, AF_BLUETOOTH, AF_UNIX
 # socket.SOCK_STREAM - TCP, conection-based, socket.SOCK_DGRAM - UDP, connectionless, datagrams, socket.SOCK_RAW - raw IP packets
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Connect to a given ip and port
+# Conexión otorgando una IP y un Puerto
 client_socket.connect((IP, PORT))
 
 # Set connection to non-blocking state, so .recv() call won;t block, just return some exception we'll handle
@@ -52,6 +52,7 @@ ads = ADS.ADS1115(i2c)
 #   Max counts for ADS1015 = 2047
 #                  ADS1115 = 32767
 chan = AnalogIn(ads, ADS.P0)
+chan1 = AnalogIn(ads,ADS.P1)
 
 # The ADS1015 and ADS1115 both have the same gain options.
 #
@@ -70,7 +71,7 @@ while True:
     ads.gain = gains[0]
     # Wait for user to input a message
     if humidity is not None and temperature is not None:
-        message = str(temperature) + "," + str(humidity) + "," + str(chan.voltage)
+        message = str(temperature) + "," + str(humidity) + "," + str(chan.voltage) + "," + str(chan1.voltage)
         #print (temperature,humidity,chan.voltage)
         print(message)
         time.sleep(3)
